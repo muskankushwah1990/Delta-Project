@@ -23,6 +23,7 @@ const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const Listing = require("./models/listing.js");
 
+
 //database connect
 const dbUrl = process.env.ATLASDB_URL;
 
@@ -109,6 +110,10 @@ app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
 
+app.get("/", async(req, res) => {
+    const allListings = await Listing.find({});
+    res.render("./listings/index.ejs", {allListings});
+})
 
 //middleware
 
